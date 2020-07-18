@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DashboardActivity"
+    android:background="@color/colorPrimary">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="28dp"
+        android:text="Discover"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true" />
+
+    <ImageView
+        android:layout_width="317dp"
+        android:layout_height="341dp"
+        android:layout_marginTop="156dp"
+        android:background="@drawable/illustration"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="396dp"
+        android:background="@drawable/v_holder"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnAddItem"
+            android:layout_width="300dp"
+            android:layout_height="100sp"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/v_holder"
+            android:backgroundTint="@color/red"
+            android:text="Add Item"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
+
+        <Button
+            android:id="@+id/btnListItem"
+            android:layout_width="300dp"
+            android:layout_height="100sp"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="170dp"
+            android:background="@drawable/v_holder"
+            android:backgroundTint="@color/red"
+            android:text="List Items"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

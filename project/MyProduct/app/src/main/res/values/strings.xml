@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="sender">Sender</string>
+    <string name="welcome">Welcome !</string>
+    <string name="nice_to_meet_you">Nice to meet you</string>
+    <string name="register">Register !</string>
+</resources>

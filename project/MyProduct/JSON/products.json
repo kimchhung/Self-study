@@ -1,0 +1,22 @@
+[
+{
+id: 1,
+name: "Galaxy note5",
+price: "200$",
+bland: "Samsung?",
+profile: "https://rupp-ite.s3.ap-southeast-1.amazonaws.com/acer.jpg"
+},
+{
+id: 2,
+name: "One Plus",
+price: "100$",
+bland: "One PLus?",
+profile: "https://rupp-ite.s3.ap-southeast-1.amazonaws.com/dell.jpg"
+},
+{
+name: "Iphone X",
+price: "300$",
+bland: "Apple?",
+profile: "https://rupp-ite.s3.ap-southeast-1.amazonaws.com/vaio.jpg"
+}
+]

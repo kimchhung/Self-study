@@ -1,5 +1,6 @@
 package com.example.myapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -11,6 +12,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +26,12 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,23 +44,24 @@ import static java.security.AccessController.getContext;
 public class LoginActivity extends AppCompatActivity {
     TextView registerEntry;
     ImageView backEntry;
-
-    private View view;
-    private TextInputEditText emailSignIn, passwordSignIn;
-    private Button btnSignIn;
+    Button loginBtn;
+    EditText username,password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         backEntry = findViewById(R.id.backEntry);
+        registerEntry = findViewById(R.id.registerEntry);
+        loginBtn = findViewById(R.id.loginBtn);
+        username = findViewById(R.id.username);
+        password = findViewById(R.id.password);
         backEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        registerEntry = findViewById(R.id.registerEntry);
         registerEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,59 +69,91 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         });
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginUser(v);
+            }
+        });
 
     }
+    private Boolean validateEmail(){
+        String val = username.getText().toString();
+        String noWhiteSpace = "\\A\\w{4,20}\\z}";
+        if(val.isEmpty()){
+            username.setError("Email cannot be empty");
+            return false;
+        }else{
+            username.setError(null);
+            return true;
+        }
+    }
+    private Boolean validatePassword(){
+        String val = password.getText().toString();
+        if (val.isEmpty()){
+            password.setError("Password cannot be empty");
+        }else {
+            password.setError(null);
+            return true;
+        }
+        return false;
+    }
 
-//    private void init() {
-//        passwordSignIn = view.findViewById(R.id.passwordSignIn);
-//        emailSignIn = view.findViewById(R.id.emailSignIn);
-//        btnSignIn = view.findViewById(R.id.btnSignIn);
-//        btnSignIn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent( LoginActivity.this,LoginActivity.class));
-//                finish();
-//            }
-//        });
-//    }
-//    private void login(){
-//        StringRequest request = new StringRequest(Request.Method.POST, Constant.LOGIN, new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//                try {
-//                    JSONObject object = new JSONObject(response);
-//                    if (object.getBoolean("success")){
-////                        JSONObject user = object.getJSONObject("user");
-////                        SharedPreferences userPref = getAco
-////                        SharedPreferences userPref = getActivity().getApplicationContext().getSharedPreferences("user",getContext().MODE_PRIVATE);
-////                        SharedPreferences.Editor editor = userPref.edit();
-////                        editor.putString("token",object.getString("token"));
-////                        editor.putString("name",object.getString("name"));
-////                        editor.putString("email",object.getString("email"));
-////                        editor.apply();
-//                        Toast.makeText(LoginActivity.this,"Login Success",Toast.LENGTH_SHORT).show();
-//                    }
-//                }catch (JSONException e){
-//                    e.printStackTrace();
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Log.d("error",error.toString());
-//            }
-//        }){
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                HashMap<String,String> map = new HashMap<>();
-//                map.put("email",emailSignIn.getText().toString().trim());
-//                map.put("password",passwordSignIn.getText().toString());
-//                return map;
-//            }
-//        };
-//        Volley.newRequestQueue(this).add(request);
-//    }
+    public void loginUser(View view){
+        if(!validateEmail() | !validatePassword()){
+        }else{
+            isUser();
+        }
+    }
 
+    private void isUser(){
+        final String userEnteredUsername = username.getText().toString().trim();
+
+        final String userEnteredPassword = password.getText().toString().trim();
+        Log.d("tag",userEnteredPassword);
+        DatabaseReference reference = (DatabaseReference) FirebaseDatabase.getInstance().getReference("users");
+
+        Query checkUser = reference.orderByChild("username").equalTo(userEnteredUsername);
+
+        checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                    username.setError(null);
+                    String passwordFromDB = dataSnapshot.child(userEnteredUsername).child("password").getValue(String.class);
+
+                    if(passwordFromDB.equals(userEnteredPassword)){
+                        Log.d("Compare password","working");
+                        String nameFromDB = dataSnapshot.child(userEnteredUsername).child("name").getValue(String.class);
+                        String usernameFromDB = dataSnapshot.child(userEnteredUsername).child("username").getValue(String.class);
+                        String emailFromDB = dataSnapshot.child(userEnteredUsername).child("email").getValue(String.class);
+                        String phoneNoFromDB = dataSnapshot.child(userEnteredUsername).child("phoneNo").getValue(String.class);
+
+                        Intent intent = new Intent(getApplicationContext(),DashboardActivity.class);
+                        intent.putExtra("name",nameFromDB);
+                        intent.putExtra("name",usernameFromDB);
+                        intent.putExtra("email",emailFromDB);
+                        intent.putExtra("password",passwordFromDB);
+                        intent.putExtra("phoneNo",phoneNoFromDB);
+
+                        startActivity(intent);
+                    }else {
+                        password.setError("Wrong Password");
+                        password.requestFocus();
+                    }
+                }
+                else{
+                    username.setError("Couldn't find your account");
+                    username.requestFocus();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
 
 }

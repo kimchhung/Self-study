@@ -21,35 +21,38 @@
         android:layout_marginLeft="25dp"
         android:layout_marginTop="25dp"
         android:background="@drawable/ic_keyboard_backspace_black_24dp" />
-    <Button
-        android:id="@+id/loginEntry"
-        android:layout_width="153dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="59dp"
-        android:layout_marginTop="395dp"
-        android:background="@drawable/button"
-        android:backgroundTint="@color/red"
-        android:text="Login"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="25sp" />
 
-    <TextView
-        android:layout_width="wrap_content"
+
+    <RelativeLayout
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="268dp"
-        android:layout_marginLeft="268dp"
-        android:layout_marginTop="411dp"
-        android:layout_marginBottom="298dp"
-        android:text="Need Help?"
-        android:textColor="@color/red"
-        android:textSize="16dp"
-        android:textStyle="bold" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="392dp">
+
+        <Button
+            android:id="@+id/loginBtn"
+            android:layout_width="153dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/button"
+            android:backgroundTint="@color/red"
+            android:text="Login"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20dp"
+            android:text="Need Help?"
+            android:textColor="@color/red"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -76,7 +79,7 @@
         android:textColorHint="@color/gray" />
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/username"
         android:layout_width="300dp"
         android:layout_height="50sp"
         android:layout_alignParentTop="true"
@@ -84,7 +87,7 @@
         android:layout_marginTop="260dp"
         android:background="@drawable/input_field"
         android:ems="10"
-        android:hint="Email Address"
+        android:hint="Username"
         android:inputType="textPersonName"
         android:textColorHint="@color/gray" />
 

@@ -13,16 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:targetApi="m"
-        >
-
+        tools:targetApi="m">
+        <activity android:name=".AddProductActivity"></activity>
         <activity android:name=".DashboardActivity" />
         <activity android:name=".ProductViewHolder" />
         <activity android:name=".ProductDetailActivity" />
         <activity android:name=".ProductsActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".AppStartActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

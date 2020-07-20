@@ -1,3 +1,4 @@
+
 [
 {
 id: 1,
@@ -18,5 +19,5 @@ name: "Iphone X",
 price: "300$",
 bland: "Apple?",
 profile: "https://rupp-ite.s3.ap-southeast-1.amazonaws.com/vaio.jpg"
-}
+},
 ]

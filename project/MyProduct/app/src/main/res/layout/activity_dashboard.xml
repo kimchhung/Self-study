@@ -37,7 +37,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnAddItem"
+            android:id="@+id/AddItemBtn"
             android:layout_width="300dp"
             android:layout_height="100sp"
             android:layout_alignParentTop="true"

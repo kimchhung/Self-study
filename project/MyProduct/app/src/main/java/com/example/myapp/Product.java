@@ -6,7 +6,18 @@ public class Product {
     private String bland;
     private String price;
     private String profile;
-    private long time;
+
+    public Product(String id, String name, String bland, String price, String profile) {
+        this.id = id;
+        this.name = name;
+        this.bland = bland;
+        this.price = price;
+        this.profile = profile;
+    }
+    public Product(){
+    }
+
+
 
     public String getProfile() {
         return profile;
@@ -48,11 +59,4 @@ public class Product {
         this.price = price;
     }
 
-    public long getTime() {
-        return time;
-    }
-
-    public void setTime(long time) {
-        this.time = time;
-    }
 }
